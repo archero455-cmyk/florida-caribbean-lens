@@ -81,42 +81,43 @@
         <p>Document the artwork, process, and exhibition for portfolio, community, and grant reporting use.</p>
       </article>
     </section>
-<section id="artist" class="section two-column muted">
-  <div>
-    <p class="section-kicker">About the Artist</p>
-    <h2>Luis Tapia</h2>
-  </div>
 
-  <div class="section-body">
-    <p>
-      Luis Tapia is a visual artist based in Lake Worth Beach, Florida. His creative foundation began
-      at a young age in Santo Domingo, Dominican Republic, where he studied drawing, painting, and music.
-      His current practice includes painting, mixed-media concepts, stencil-based design, handmade visual
-      work, and digitally planned compositions.
-    </p>
+    <section id="artist" class="section two-column muted">
+      <div>
+        <p class="section-kicker">About the Artist</p>
+        <h2>Luis Tapia</h2>
+      </div>
 
-    <p>
-      Luis’s work is driven by the challenge of realism and visual illusion. He is especially interested
-      in how light, shadow, gradients, color blending, perspective, and atmosphere can make a flat surface
-      feel dimensional and alive. His paintings often explore how far paint can go in creating depth,
-      precision, brightness, and a sense of photographic realism through the hand of the artist.
-    </p>
+      <div class="section-body">
+        <p>
+          Luis Tapia is a visual artist based in Lake Worth Beach, Florida. His creative foundation began
+          at a young age in Santo Domingo, Dominican Republic, where he studied drawing, painting, and music.
+          His current practice includes painting, mixed-media concepts, stencil-based design, handmade visual
+          work, and digitally planned compositions.
+        </p>
 
-    <p>
-      His work is influenced by tropical color, music culture, coastal life, cars, restaurants,
-      handmade signs, and everyday scenes from South Florida. Luis approaches artwork with both an
-      artist’s eye and a builder’s mindset, considering composition, surface, material, presentation,
-      and how each work interacts with the space where it is displayed.
-    </p>
+        <p>
+          Luis’s work is driven by the challenge of realism and visual illusion. He is especially interested
+          in how light, shadow, gradients, color blending, perspective, and atmosphere can make a flat surface
+          feel dimensional and alive. His paintings often explore how far paint can go in creating depth,
+          precision, brightness, and a sense of photographic realism through the hand of the artist.
+        </p>
 
-    <p>
-      In his mixed-media direction, Luis is also interested in extending realism beyond the canvas.
-      Texture, sculptural surfaces, and physical 3D elements become part of the same question that drives
-      his painting: how can real-world form, light, shadow, and material presence become part of the
-      painted illusion?
-    </p>
-  </div>
-</section>
+        <p>
+          His work is influenced by tropical color, music culture, coastal life, cars, restaurants,
+          handmade signs, and everyday scenes from South Florida. Luis approaches artwork with both an
+          artist’s eye and a builder’s mindset, considering composition, surface, material, presentation,
+          and how each work interacts with the space where it is displayed.
+        </p>
+
+        <p>
+          In his mixed-media direction, Luis is also interested in extending realism beyond the canvas.
+          Texture, sculptural surfaces, and physical 3D elements become part of the same question that drives
+          his painting: how can real-world form, light, shadow, and material presence become part of the
+          painted illusion?
+        </p>
+      </div>
+    </section>
 
     <section id="works" class="section">
       <div class="section-header">
@@ -134,13 +135,13 @@
           <h3>Ocean Front</h3>
           <p>Mixed-media / painting on canvas, 45 × 37 in, 2026</p>
         </article>
-       <article class="work-card">
+        <article class="work-card">
           <img src="flamingo_bird.jpg" alt="Flamingo Bird artwork by Luis Tapia" class="work-image">
           <h3>Flamingo Bird</h3>
           <p>Mixed-media painting of a flamingo bird, 11 × 14 in, 2026</p>
         </article>
         <article class="work-card">
-         <img src="jazz_room_guitarrist.jpg" alt="Jazz Room Guitarist by Luis Tapia" class="work-image">
+          <img src="jazz_room_guitarrist.jpg" alt="Jazz Room Guitarist by Luis Tapia" class="work-image">
           <h3>Jazz Room Guitarist</h3>
           <p>Painting on canvas, 16 × 20 in, 2026</p>
         </article>
@@ -187,10 +188,47 @@
 
   <footer class="site-footer">
     <p>© <span id="year"></span> Luis Tapia. Florida Through a Caribbean Lens.</p>
+    <p class="visit-counter" aria-live="polite">
+      Page visits: <span id="visit-count">Loading...</span>
+    </p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearElement = document.getElementById('year');
+    const visitCountElement = document.getElementById('visit-count');
+
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
+
+    if (visitCountElement) {
+      const counterWorkspace = 'florida-through-a-caribbean-lens-luis-tapia';
+      const counterName = 'homepage-visits';
+
+      function showCounterValue(value) {
+        visitCountElement.textContent = Number(value || 0).toLocaleString('en-US');
+      }
+
+      function showCounterUnavailable() {
+        visitCountElement.textContent = 'Unavailable';
+        visitCountElement.setAttribute('title', 'The visit counter service did not respond.');
+      }
+
+      if (typeof Counter === 'undefined') {
+        showCounterUnavailable();
+      } else {
+        const counter = new Counter({ workspace: counterWorkspace });
+
+        counter.up(counterName)
+          .then(function(result) {
+            showCounterValue(result.value);
+          })
+          .catch(function() {
+            showCounterUnavailable();
+          });
+      }
+    }
   </script>
 </body>
 </html>
